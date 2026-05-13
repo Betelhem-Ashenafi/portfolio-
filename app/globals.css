@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Outfit:wght@500;700;900&display=swap');
+
+:root {
+  --background: 0 0% 2%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 4%;
+  --card-foreground: 0 0% 98%;
+  --primary: 358 77% 51%; /* Red Base */
+  --primary-gradient: linear-gradient(135deg, #E31E24 0%, #FF2E95 100%);
+  --secondary: 180 100% 50%; /* Cyan Accent */
+  --muted: 0 0% 12%;
+  --muted-foreground: 0 0% 60%;
+  --border: 0 0% 12%;
+  --radius: 1.25rem;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: 'Space Grotesk', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Dynamic background elements */
+.bg-mesh {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: 
+    radial-gradient(circle at 0% 0%, hsla(var(--primary) / 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, hsla(var(--secondary) / 0.05) 0%, transparent 50%);
+  filter: blur(80px);
+}
+
+/* Glassmorphism Refined */
+.glass {
+  @apply bg-white/[0.01] backdrop-blur-3xl border border-white/5 shadow-2xl;
+}
+
+.glass-card {
+  @apply bg-zinc-900/20 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.8)];
+}
+
+.gradient-text {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+@layer components {
+  .hiwot-card {
+    @apply glass-card p-10 rounded-[2.5rem] transition-all duration-700 hover:scale-[1.01] hover:border-primary/40;
+  }
+
+  .hiwot-button {
+    background: var(--primary-gradient);
+    @apply px-10 py-4 text-white font-bold rounded-2xl shadow-2xl shadow-primary/20 transition-all hover:shadow-primary/40 hover:-translate-y-1 active:scale-95 uppercase tracking-wider text-sm;
+  }
+
+  .hiwot-button-outline {
+    @apply px-10 py-4 bg-transparent border-2 border-white/10 text-white font-bold rounded-2xl transition-all hover:bg-white/5 hover:border-white/30 active:scale-95 uppercase tracking-wider text-sm;
+  }
+}
+
+.section-padding {
+  @apply py-32 md:py-48;
+}
+
+.container-custom {
+  @apply max-w-7xl mx-auto px-8 md:px-20;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white/5 rounded-full hover:bg-white/10 transition-colors;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.03em;
+}
+
+
+
+
+
