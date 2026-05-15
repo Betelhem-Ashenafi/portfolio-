@@ -1,129 +1,121 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight, Download, MousePointer2 } from 'lucide-react'
+import { ArrowRight, Download, Github, Linkedin, Twitter, Sparkles } from 'lucide-react'
+
+const socials = [
+  { icon: Github,   href: 'https://github.com/',   label: 'GitHub' },
+  { icon: Linkedin, href: 'https://linkedin.com/', label: 'LinkedIn' },
+  { icon: Twitter,  href: 'https://twitter.com/',  label: 'Twitter' },
+]
 
 export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center pt-32 lg:pt-0"
+      className="relative min-h-screen flex items-center overflow-hidden py-16 lg:py-0"
+      style={{ background: 'var(--bg)' }}
     >
-      <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          {/* Left Column: Text Content */}
+      {/* ── Background Subtle Accents ──────────────────── */}
+      <div className="absolute inset-0 z-0 bg-grid opacity-[0.05] pointer-events-none" />
+
+      <div className="container-main relative z-10 w-full">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+          
+          {/* ── Left Content ─────────────────────────────── */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="space-y-8"
           >
-            <div className="mb-10 flex items-center gap-4">
-              <span className="mono text-[10px] font-bold text-cyan-400 tracking-[0.5em] uppercase px-4 py-1.5 bg-cyan-400/10 border border-cyan-400/20 rounded-full">
-                Engineering Studio
+            <div className="flex items-center gap-3">
+              <Sparkles size={16} className="text-accent animate-pulse" />
+              <span className="text-xs font-bold uppercase tracking-[0.3em] text-text-muted">
+                Full-Stack Developer
               </span>
             </div>
-            
-            <h2 className="text-white/40 text-xl font-bold mb-6 mono tracking-tighter">
-              / Betelhem Ashenafi <span className="text-cyan-400">_</span>
-            </h2>
-            
-            <h1 className="text-6xl md:text-8xl lg:text-[100px] font-black tracking-tight leading-[0.95] mb-10 text-white">
-              CRAFTING <br />
-              <span className="gradient-text">DIGITAL</span> <br />
-              EXPERIENCES.
-            </h1>
-            
-            <p className="max-w-xl text-xl text-muted-foreground leading-relaxed mb-12 font-medium">
-              Architecting high-performance systems and immersive user interfaces 
-              with a focus on scalability and elegant code.
-            </p>
-            
-            <div className="flex flex-wrap gap-6">
-              <button className="hiwot-button flex items-center gap-3 group">
-                Let's Talk <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button className="hiwot-button-outline flex items-center gap-3">
-                <Download size={18} /> Resume
-              </button>
+
+            <div className="space-y-4">
+              <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight" style={{ color: 'var(--text-primary)' }}>
+                Building Robust <br />
+                <span className="gradient-text">Web Solutions</span>
+              </h1>
+              
+              <p className="text-lg leading-relaxed max-w-md" style={{ color: 'var(--text-secondary)' }}>
+                Hi, I&apos;m <strong className="text-text-primary">Betelhem Ashenafi</strong>. I engineer scalable 
+                applications with a focus on clean code and performance.
+              </p>
             </div>
-            
-            <div className="mt-16 flex flex-wrap gap-4">
-              {['Next.js 14', 'TypeScript', 'Cloud Native'].map((badge) => (
-                <span key={badge} className="mono px-5 py-2.5 bg-white/5 border border-white/10 rounded-xl text-[10px] font-bold text-white/40 hover:text-white/80 transition-colors cursor-default">
-                  {badge}
-                </span>
+
+            <div className="flex flex-wrap gap-5">
+              <a href="#projects" className="btn-primary !px-8 !py-4 text-sm shadow-accent">
+                See My Work
+                <ArrowRight size={18} />
+              </a>
+              <a href="/resume.pdf" download className="btn-outline !px-8 !py-4 text-sm">
+                Download CV
+              </a>
+            </div>
+
+            {/* Socials */}
+            <div className="flex items-center gap-6 pt-4">
+              {socials.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-text-muted hover:text-accent transition-all hover:-translate-y-1"
+                  aria-label={label}
+                >
+                  <Icon size={20} />
+                </a>
               ))}
             </div>
           </motion.div>
 
-          {/* Right Column: Showcase Card */}
+          {/* ── Right Content: The Visual Hook ────────────── */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, rotateY: 20 }}
-            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-            transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="relative perspective-1000"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 1, ease: "easeOut" }}
+            className="relative flex justify-center lg:justify-end pr-8"
           >
-            {/* Featured Project Card */}
-            <div className="hiwot-card overflow-hidden !p-0 border-white/10 shadow-[0_32px_64px_-16px_rgba(227,30,36,0.2)] bg-black/40">
-              {/* Card Header */}
-              <div className="bg-white/5 px-8 py-5 flex items-center justify-between border-b border-white/10">
-                <div className="flex gap-2.5">
-                  <div className="w-3.5 h-3.5 rounded-full bg-[#E31E24]" />
-                  <div className="w-3.5 h-3.5 rounded-full bg-white/10" />
-                  <div className="w-3.5 h-3.5 rounded-full bg-white/10" />
-                </div>
-                <div className="mono text-[10px] font-bold text-white/20 tracking-[0.3em] uppercase">System.v1</div>
-              </div>
+            <div className="relative">
               
-              {/* Content */}
-              <div className="p-4 aspect-square lg:aspect-[4/5] bg-zinc-950 relative group overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1000" 
-                  alt="Abstract Art" 
-                  className="w-full h-full object-cover rounded-2xl opacity-40 group-hover:opacity-60 transition-all duration-1000 group-hover:scale-110"
+              {/* ── The Hook ────────────────────────────────── */}
+              {/* This is the large semi-transparent hook from the user's reference image */}
+              <div 
+                className="absolute -top-10 -left-10 w-40 h-40 border-t-[20px] border-l-[20px] opacity-[0.08] pointer-events-none" 
+                style={{ 
+                  borderColor: 'var(--accent)', 
+                  borderTopLeftRadius: '60px'
+                }} 
+              />
+              
+              {/* Image Container */}
+              <div className="relative z-10 w-full max-w-[280px] md:max-w-[340px] rounded-[40px] overflow-hidden shadow-2xl bg-white/5">
+                <img
+                  src="/profile.png"
+                  alt="Betelhem Ashenafi"
+                  className="w-full h-auto object-contain block transition-transform duration-700 hover:scale-[1.02]"
                 />
-                
-                {/* Overlay UI */}
-                <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                  <div className="space-y-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
-                    <h3 className="text-3xl font-black text-white leading-none">CORE ARCHITECTURE</h3>
-                    <p className="text-white/40 mono text-xs tracking-wider">SECURE / SCALABLE / MODERN</p>
-                    <div className="pt-6 flex gap-4">
-                       <div className="w-12 h-1 bg-white/10 rounded-full overflow-hidden">
-                          <div className="w-2/3 h-full bg-[#E31E24]" />
-                       </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Floating Element */}
-                <div className="absolute top-8 right-8 p-4 glass rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-90 group-hover:scale-100">
-                   <MousePointer2 className="text-cyan-400" size={24} />
-                </div>
               </div>
             </div>
-            
-            {/* Decorative Glows */}
-            <div className="absolute -top-20 -right-20 w-64 h-64 bg-[#E31E24]/20 rounded-full blur-[100px] -z-10" />
-            <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-cyan-400/10 rounded-full blur-[100px] -z-10" />
           </motion.div>
+
         </div>
       </div>
 
-      {/* Floating Indicators */}
-      <div className="absolute bottom-16 right-16 hidden lg:flex flex-col gap-8 items-end opacity-20">
-        <div className="flex gap-4 mono text-[10px] font-bold tracking-[0.5em] rotate-90 origin-right translate-x-12 translate-y-12">
-          <span>STABILITY</span>
-          <span>EFFICIENCY</span>
-          <span>CREATIVITY</span>
-        </div>
-      </div>
+      {/* Scroll indicator */}
+      <motion.div 
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-20 hidden lg:block"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <div className="w-px h-16 bg-text-primary" />
+      </motion.div>
     </section>
   )
 }
-
-
-
-
-
-
