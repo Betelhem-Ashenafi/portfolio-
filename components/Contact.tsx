@@ -1,102 +1,300 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Mail, MapPin, Send, ArrowRight } from 'lucide-react'
+import { useState, FormEvent } from 'react'
+import { Mail, MapPin, Phone, Send, Github, Linkedin, Twitter, CheckCircle } from 'lucide-react'
+
+const contactInfo = [
+  {
+    icon: Mail,
+    label: 'Email',
+    value: 'hello@betelhem.dev',
+    href: 'mailto:hello@betelhem.dev',
+  },
+  {
+    icon: Phone,
+    label: 'Phone',
+    value: '+251 912 345 678',
+    href: 'tel:+251912345678',
+  },
+  {
+    icon: MapPin,
+    label: 'Location',
+    value: 'Bahir Dar, Ethiopia',
+    href: '#',
+  },
+]
+
+const socials = [
+  { icon: Github,   href: 'https://github.com/',   label: 'GitHub' },
+  { icon: Linkedin, href: 'https://linkedin.com/', label: 'LinkedIn' },
+  { icon: Twitter,  href: 'https://twitter.com/',  label: 'Twitter' },
+]
 
 export default function Contact() {
-  return (
-    <section id="contact" className="section-padding relative overflow-hidden">
-      <div className="container-custom">
-        <div className="grid lg:grid-cols-12 gap-16 lg:gap-32">
-          {/* Info Side */}
-          <div className="lg:col-span-5 space-y-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="space-y-8"
-            >
-              <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter">
-                LET'S <br />
-                <span className="gradient-text">CONNECT.</span>
-              </h2>
-              <p className="text-xl text-white/40 max-w-sm leading-relaxed">
-                Currently open to new projects and interesting collaborations.
-              </p>
-            </motion.div>
+  const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-            <div className="space-y-10 pt-16 border-t border-white/5">
-              <a href="mailto:betelhem.ashenafi@example.com" className="group flex items-center justify-between py-6 border-b border-white/5 hover:border-cyan-400 transition-all">
-                <div className="space-y-1">
-                   <p className="mono text-[10px] font-bold text-white/20 uppercase tracking-[0.3em]">Direct Email</p>
-                   <p className="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">hello@betelhem.dev</p>
-                </div>
-                <ArrowRight className="text-white/20 group-hover:text-cyan-400 group-hover:translate-x-2 transition-all" size={24} />
-              </a>
-              
-              <div className="flex gap-12 pt-8">
-                 <a href="#" className="mono text-[10px] font-bold text-white/40 hover:text-white transition-colors tracking-widest">LINKEDIN</a>
-                 <a href="#" className="mono text-[10px] font-bold text-white/40 hover:text-white transition-colors tracking-widest">TWITTER</a>
-                 <a href="#" className="mono text-[10px] font-bold text-white/40 hover:text-white transition-colors tracking-widest">GITHUB</a>
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setLoading(true)
+    await new Promise(r => setTimeout(r, 1500))
+    setLoading(false)
+    setSubmitted(true)
+  }
+
+  return (
+    <section
+      id="contact"
+      className="section-wrapper"
+      style={{ background: 'var(--bg-muted)' }}
+    >
+      <div className="container-main">
+
+        {/* ── Header ─────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-14"
+        >
+          <p className="section-label">Say Hello</p>
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4" style={{ color: 'var(--text-primary)' }}>
+            Get In <span className="gradient-text">Touch</span>
+          </h2>
+          <p className="text-base max-w-xl" style={{ color: 'var(--text-muted)' }}>
+            I&apos;m currently open to new opportunities. Whether you have a project in mind, a question, or just want to say hi — my inbox is always open!
+          </p>
+          <div className="w-16 h-1 rounded-full mt-4" style={{ background: 'var(--accent)' }} />
+        </motion.div>
+
+        <div className="grid lg:grid-cols-5 gap-12">
+
+          {/* ── Left: Info ────────────────────────────────── */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-2 space-y-8"
+          >
+            {/* Contact details */}
+            <div className="space-y-4">
+              {contactInfo.map(({ icon: Icon, label, value, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="flex items-center gap-4 p-4 rounded-xl transition-all group"
+                  style={{
+                    background: 'var(--bg-card)',
+                    border: '1px solid var(--border)',
+                    textDecoration: 'none',
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)'
+                    ;(e.currentTarget as HTMLElement).style.transform = 'translateX(4px)'
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)'
+                    ;(e.currentTarget as HTMLElement).style.transform = 'translateX(0)'
+                  }}
+                >
+                  <div
+                    className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-all group-hover:scale-110"
+                    style={{ background: 'rgba(139,0,0,0.1)', color: 'var(--accent)' }}
+                  >
+                    <Icon size={20} />
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: 'var(--text-muted)' }}>
+                      {label}
+                    </p>
+                    <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
+                      {value}
+                    </p>
+                  </div>
+                </a>
+              ))}
+            </div>
+
+            {/* Social links */}
+            <div>
+              <p className="text-sm font-semibold mb-4" style={{ color: 'var(--text-muted)' }}>
+                Find me online
+              </p>
+              <div className="flex gap-3">
+                {socials.map(({ icon: Icon, href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={label}
+                    className="w-11 h-11 rounded-xl flex items-center justify-center transition-all hover:-translate-y-1"
+                    style={{
+                      background: 'var(--bg-card)',
+                      color: 'var(--text-secondary)',
+                      border: '1px solid var(--border)',
+                    }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLElement).style.background = 'var(--accent)'
+                      ;(e.currentTarget as HTMLElement).style.color = '#fff'
+                      ;(e.currentTarget as HTMLElement).style.borderColor = 'var(--accent)'
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLElement).style.background = 'var(--bg-card)'
+                      ;(e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)'
+                      ;(e.currentTarget as HTMLElement).style.borderColor = 'var(--border)'
+                    }}
+                  >
+                    <Icon size={18} />
+                  </a>
+                ))}
               </div>
             </div>
-          </div>
 
-          {/* Form Side */}
-          <div className="lg:col-span-7">
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="hiwot-card"
+            {/* Availability banner */}
+            <div
+              className="p-5 rounded-2xl"
+              style={{
+                background: 'linear-gradient(135deg, var(--accent) 0%, #c0392b 100%)',
+                color: '#fff',
+              }}
             >
-              <form className="space-y-12">
-                <div className="grid md:grid-cols-2 gap-12">
-                   <div className="space-y-4">
-                      <label className="mono text-[10px] font-bold text-cyan-400 uppercase tracking-widest">Full Name</label>
-                      <input 
-                        type="text" 
-                        className="w-full bg-transparent border-b border-white/10 py-4 text-xl text-white focus:border-cyan-400 outline-none transition-all placeholder:text-white/5"
-                        placeholder="John Doe"
-                      />
-                   </div>
-                   <div className="space-y-4">
-                      <label className="mono text-[10px] font-bold text-cyan-400 uppercase tracking-widest">Email Address</label>
-                      <input 
-                        type="email" 
-                        className="w-full bg-transparent border-b border-white/10 py-4 text-xl text-white focus:border-cyan-400 outline-none transition-all placeholder:text-white/5"
-                        placeholder="john@example.com"
-                      />
-                   </div>
-                </div>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-green-300 animate-pulse" />
+                <span className="text-sm font-bold">Available for Work</span>
+              </div>
+              <p className="text-xs opacity-80 leading-relaxed">
+                I&apos;m currently accepting new projects and freelance work. Let&apos;s build something amazing together!
+              </p>
+            </div>
+          </motion.div>
 
-                <div className="space-y-4">
-                   <label className="mono text-[10px] font-bold text-cyan-400 uppercase tracking-widest">Message</label>
-                   <textarea 
-                     rows={4}
-                     className="w-full bg-transparent border-b border-white/10 py-4 text-xl text-white focus:border-cyan-400 outline-none transition-all resize-none placeholder:text-white/5"
-                     placeholder="Tell me about your project..."
-                   />
-                </div>
-                
-                <button className="hiwot-button w-full flex items-center justify-center gap-4 py-6">
-                  Send Transmission <Send size={20} />
-                </button>
-              </form>
-            </motion.div>
-          </div>
+          {/* ── Right: Form ───────────────────────────────── */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-3"
+          >
+            <div className="card p-8">
+              {submitted ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex flex-col items-center justify-center py-16 text-center gap-4"
+                >
+                  <CheckCircle size={56} style={{ color: '#16a34a' }} />
+                  <h3 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                    Message Sent!
+                  </h3>
+                  <p style={{ color: 'var(--text-muted)' }}>
+                    Thank you for reaching out. I&apos;ll get back to you within 24 hours.
+                  </p>
+                  <button
+                    onClick={() => setSubmitted(false)}
+                    className="btn-outline mt-4"
+                  >
+                    Send Another
+                  </button>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <h3 className="text-xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
+                    Send Me a Message
+                  </h3>
+
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <div className="space-y-2">
+                      <label className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
+                        Full Name *
+                      </label>
+                      <input
+                        id="contact-name"
+                        type="text"
+                        required
+                        placeholder="John Doe"
+                        className="input-field"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
+                        Email Address *
+                      </label>
+                      <input
+                        id="contact-email"
+                        type="email"
+                        required
+                        placeholder="john@example.com"
+                        className="input-field"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
+                      Subject
+                    </label>
+                    <input
+                      id="contact-subject"
+                      type="text"
+                      placeholder="Project collaboration, Freelance work…"
+                      className="input-field"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
+                      Message *
+                    </label>
+                    <textarea
+                      id="contact-message"
+                      rows={5}
+                      required
+                      placeholder="Tell me about your project or idea…"
+                      className="input-field resize-none"
+                    />
+                  </div>
+
+                  <button
+                    id="contact-submit"
+                    type="submit"
+                    disabled={loading}
+                    className="btn-primary w-full justify-center py-4 text-base disabled:opacity-60"
+                  >
+                    {loading ? (
+                      <>
+                        <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                        </svg>
+                        Sending…
+                      </>
+                    ) : (
+                      <>
+                        <Send size={18} /> Send Message
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
+            </div>
+          </motion.div>
         </div>
 
-        <div className="mt-48 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-           <p className="mono text-[10px] font-bold text-white/20 tracking-widest">© 2024 BETELHEM ASHENAFI / DESIGNED FOR IMPACT</p>
-           <div className="flex gap-8 mono text-[10px] font-bold text-white/20">
-              <span>LOCAL TIME: 20:45</span>
-              <span>BAHIR DAR, ET</span>
-           </div>
+        {/* ── Footer strip ──────────────────────────────── */}
+        <div className="divider mt-20 mb-0" />
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 pb-4">
+          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+            © {new Date().getFullYear()} <strong style={{ color: 'var(--accent)' }}>Betelhem Ashenafi</strong>. All rights reserved.
+          </p>
+          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+            Built with Next.js & TypeScript
+          </p>
         </div>
       </div>
     </section>
   )
 }
-
-
