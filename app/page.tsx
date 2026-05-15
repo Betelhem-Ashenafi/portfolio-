@@ -12,14 +12,14 @@ export default function Home() {
     <main className="min-h-screen overflow-x-hidden">
       <ScrollProgress />
       <Navigation />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Contact />
+      <div className="content-area">
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </div>
       <BackToTop />
     </main>
   )
 }
-
-
